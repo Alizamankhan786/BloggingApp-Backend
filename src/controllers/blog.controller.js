@@ -7,7 +7,6 @@ const createBlog = async (req, res) => {
     const blog = await Blog.create({
       title,
       content,
-      author: req.user.id, // Assuming user ID comes from middleware
     });
     res.status(201).json({ success: true, blog });
   } catch (error) {
@@ -18,12 +17,13 @@ const createBlog = async (req, res) => {
 // Get All Blogs
 const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate('author', 'username email');
+    const blogs = await Blog.find();
     res.status(200).json({ success: true, blogs });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+
 
 // Update Blog
 const updateBlog = async (req, res) => {

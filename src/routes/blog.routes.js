@@ -7,4 +7,5 @@ router.post('/create', createBlog);
 router.get('/create', getAllBlogs);
 router.put('/create/:id', updateBlog);
 
+
 export default router;

@@ -7,25 +7,27 @@ const addComment = async (req, res) => {
   try {
     const comment = await Comment.create({
       content,
-      author: req.user.id, // Assuming user ID comes from middleware
       blog: blogId,
     });
+
     res.status(201).json({ success: true, comment });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
 
+
 // Get Comments for a Blog
 const getCommentsForBlog = async (req, res) => {
   const { blogId } = req.params;
   try {
-    const comments = await Comment.find({ blog: blogId }).populate('author', 'username');
+    const comments = await Comment.find({ blog: blogId });
     res.status(200).json({ success: true, comments });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+
 
 
 export {addComment , getCommentsForBlog};

@@ -24,6 +24,15 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
+
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  res.status(500).json({ success: false, message: err.message });
+});
+
+
+
 connectDB()
   .then(() => {
     app.listen(process.env.PORT, () => {
@@ -34,8 +43,3 @@ connectDB()
     console.log("MONGO DB connection failed !!! ", err);
   });
 
-
-// Error Handling Middleware
-app.use((err, req, res, next) => {
-  res.status(500).json({ success: false, message: err.message });
-});
